@@ -14,7 +14,7 @@ import { MONGODB_URI, SESSION_SECRET } from "./utils/env";
 
 
 // controllers
-import * as TestController from "./controllers/test";
+import * as TestController from "./controllers/test.controller";
 import * as UserController from "./controllers/user.controller";
 
 
@@ -29,7 +29,7 @@ const app = express();
 
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
-(<any>mongoose).Promise = bluebird;
+(< any>mongoose).Promise = bluebird;
 mongoose.connect(mongoUrl, {useMongoClient: true}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
