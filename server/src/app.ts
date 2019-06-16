@@ -13,9 +13,8 @@ import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./utils/env";
 
 
-// controllers
-import * as TestController from "./controllers/test.controller";
-import * as UserController from "./controllers/user.controller";
+// api
+import api from "./api";
 
 
 
@@ -30,7 +29,7 @@ const app = express();
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
 (< any>mongoose).Promise = bluebird;
-mongoose.connect(mongoUrl, {useMongoClient: true}).then(
+mongoose.connect(mongoUrl).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
@@ -61,9 +60,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
-app.get("/test", TestController.test);
-app.get("/userList", UserController.userList);
+api(app);
 
 
 export default app;
