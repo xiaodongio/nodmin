@@ -1,18 +1,15 @@
+import { Request, Response } from "express";
+import { JsonController, QueryParam, Get, Req, Res } from "routing-controllers";
 
-import express from "express";
+@JsonController()
+export class TestController {
 
-const router = express.Router();
-
-router.get("/test", (req, res, next) => {
-  try {
-    let name = req.query.name;
+  @Get("/test")
+  test(@Req() request: Request, @Res() response: Response, @QueryParam("name") name: string) {
     if (!name) {
-      name = "nodmin";
+      name = "world";
     }
-    res.json({"result": `hello ${name}`});
-  } catch (err) {
-    next(err);
+    return response.send(`hello ${name}`);
   }
-});
 
-export default router;
+}

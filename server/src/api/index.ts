@@ -1,8 +1,6 @@
 import * as express from "express";
-import testController from "./test.controller";
-import userController from "./user.controller";
+import { TestController } from "./test.controller";
+import { UserController } from "./user.controller";
 
-export default function api(server: express.Express) {
-  server.use("/api/v1/test", testController);
-  server.use("/api/v1/user", userController);
-}
+
+export default [TestController, UserController];

@@ -1,9 +1,21 @@
-import BaseSchema from "../common/BaseSchema";
+import BaseSchema from "../../../common/base.schema";
 import mongoose from "mongoose";
 import crypto from "crypto";
 
 export type UserDocument = mongoose.Document & {
-
+  login_name: { type: String, unique: true },
+  password: String,
+  sex: {
+    type: Number,
+    default: 0
+  },
+  profile: {
+    name: String,
+    email: String,
+    gender: String,
+    phone: String,
+    avatar: String
+  }
 };
 
 

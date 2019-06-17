@@ -13,11 +13,6 @@ import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./utils/env";
 
 
-// api
-import api from "./api";
-
-
-
 const MongoStore = mongo(session);
 
 // Load environment variables from .env file, where API keys and passwords are configured
@@ -37,7 +32,6 @@ mongoose.connect(mongoUrl).then(
 });
 
 // Express configuration
-app.set("port", process.env.PORT || 3000);
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -59,8 +53,6 @@ app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
-
-api(app);
 
 
 export default app;
