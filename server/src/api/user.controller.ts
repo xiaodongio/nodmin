@@ -28,7 +28,7 @@ export class UserController {
     post(@Req() request: Request,
          @Res() response: Response,
          @Body() user: UserDocument) {
-        return response.send(this.userService.create(user));
+        return response.send(this.userService.add(user));
     }
 }
 

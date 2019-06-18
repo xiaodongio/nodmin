@@ -9,7 +9,7 @@ export default class BaseRepository< T extends mongoose.Document> {
   }
 
   async create (item: T) {
-      await this._model.create(item);
+      return await this._model.create(item);
   }
 
   async findAll () {

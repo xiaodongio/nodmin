@@ -4,7 +4,7 @@ import crypto from "crypto";
 
 export type UserDocument = mongoose.Document & {
   login_name: { type: String, unique: true },
-  password: String,
+  password: string,
   sex: {
     type: Number,
     default: 0

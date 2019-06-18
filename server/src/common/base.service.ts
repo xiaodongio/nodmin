@@ -7,7 +7,7 @@ export default class BaseService<R extends BaseRepository<T>, T extends mongoose
   protected _respository: R;
 
   async create (item: T) {
-    await this._respository.create(item);
+    return await this._respository.create(item);
   }
 
   async findAll () {
