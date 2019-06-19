@@ -13,10 +13,9 @@ export class UserService extends BaseService<UserRepository, UserDocument> {
     }
 
     add(user: UserDocument) {
-        bcrypt.hash(user.password, "10", function(err, hash) {
-            user.password = hash;
-        });
-        user.save();
+        console.log(user);
+        user.password = bcrypt.hashSync(user.password);
+        console.log(user);
         this.create(user);
     }
 
