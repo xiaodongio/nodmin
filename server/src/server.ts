@@ -1,26 +1,18 @@
-import errorHandler from "errorhandler";
+import error from "koa-json-error";
 import "reflect-metadata";
-import {useExpressServer} from "routing-controllers";
+import { useKoaServer } from "routing-controllers";
 import app from "./app";
 import api from "./api";
 
 /**
  * Error Handler. Provides full stack - remove for production
  */
-app.use(errorHandler());
+app.use(error());
 
 /**
  * Start Express server.
  */
-// export const server = app.listen(app.get("port"), () => {
-//   console.log(
-//     "  App is running at http://localhost:%d in %s mode",
-//     app.get("port"),
-//     app.get("env")
-//   );
-//   console.log("  Press CTRL-C to stop\n");
-// });
-export const server = useExpressServer(app, {
+export const server = useKoaServer(app, {
   controllers: api,
   routePrefix: "/api"
 });

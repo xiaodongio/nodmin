@@ -1,29 +1,26 @@
-import express from "express";
-import compression from "compression";  // compresses requests
-import session from "express-session";
-import bodyParser from "body-parser";
-import lusca from "lusca";
+import compression from "koa-compress";  // compresses requests
+import session from "koa-session";
+import helmet from "koa-helmet";
 import dotenv from "dotenv";
 import mongo from "connect-mongo";
-import path from "path";
 import mongoose from "mongoose";
-import passport from "passport";
-import expressValidator from "express-validator";
-import bluebird from "bluebird";
+import passport from "koa-passport";
 import { MONGODB_URI, SESSION_SECRET } from "./utils/env";
+import Koa from "koa";
+import bodyParser from "koa-bodyparser";
 
 
-const MongoStore = mongo(session);
+// const MongoStore = mongo(session);
 
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: ".env.dev" });
 
 // Create Express server
-const app = express();
+// const app = express();
+const app = new Koa();
 
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
-(< any>mongoose).Promise = bluebird;
 mongoose.connect(mongoUrl).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
@@ -33,9 +30,8 @@ mongoose.connect(mongoUrl).then(
 
 // Express configuration
 app.use(compression());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expressValidator());
+app.use(bodyParser());
+// app.use(expressValidator());
 // app.use(session({
 //   resave: true,
 //   saveUninitialized: true,
@@ -47,12 +43,11 @@ app.use(expressValidator());
 // }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(lusca.xframe("SAMEORIGIN"));
-app.use(lusca.xssProtection(true));
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  next();
-});
+app.use(helmet());
+// app.use((req, res, next) => {
+//   res.locals.user = req.user;
+//   next();
+// });
 
 
 export default app;

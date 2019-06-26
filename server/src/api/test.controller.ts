@@ -1,15 +1,14 @@
-import { Request, Response } from "express";
-import { JsonController, QueryParam, Get, Req, Res } from "routing-controllers";
+import { JsonController, QueryParam, Get } from "routing-controllers";
 
 @JsonController()
 export class TestController {
 
   @Get("/test")
-  test(@Req() request: Request, @Res() response: Response, @QueryParam("name") name: string) {
+  test(@QueryParam("name") name: string): string {
     if (!name) {
       name = "world";
     }
-    return response.send(`hello ${name}`);
+    return `hello ${name}`;
   }
 
 }
